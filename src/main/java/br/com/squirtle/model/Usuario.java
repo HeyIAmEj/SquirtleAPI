@@ -27,4 +27,5 @@ public class Usuario {
     public String toString(){
         return String.format("{'id':%d, 'nome':%s, 'email':%s, 'senha':%s}", getId(), getNome(), getEmail(), getSenha());
     }
+    
 }
