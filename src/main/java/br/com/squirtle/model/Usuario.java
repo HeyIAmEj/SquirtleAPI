@@ -1,12 +1,9 @@
 package br.com.squirtle.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,18 +11,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
+    private String sobrenome;
 
     private String email;
-
     private String senha;
 
-    @Override
-    public String toString(){
-        return String.format("{'id':%d, 'nome':%s, 'email':%s, 'senha':%s}", getId(), getNome(), getEmail(), getSenha());
-    }
-    
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_usuario_tem_dispositivo",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "dispositivo_id"))
+    private List<Dispositivo> dispositivos;
+
 }
