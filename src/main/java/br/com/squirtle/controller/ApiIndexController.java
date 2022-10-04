@@ -1,7 +1,5 @@
 package br.com.squirtle.controller;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiIndexController {
 
     @GetMapping
-    public String index() throws JSONException {
-        JSONObject obj = new JSONObject();
-        obj.put("status", 200);
-        return obj.toString();
+    public String index(){
+        return "hello";
+    }
+
+    @GetMapping("/api/v1/")
+    public String indexapi() {
+        return "helloapi";
     }
 
 
