@@ -10,8 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@ComponentScan
-@EnableAutoConfiguration
+@SpringBootApplication
 public class SquirtleApplication {
 
 	public static void main(String[] args) {
