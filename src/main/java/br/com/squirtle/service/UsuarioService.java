@@ -8,14 +8,22 @@ import br.com.squirtle.model.Usuario;
 import br.com.squirtle.model.UsuarioDispositivo;
 import br.com.squirtle.repository.LinkRepository;
 import br.com.squirtle.repository.UsuarioRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -38,8 +46,14 @@ public class UsuarioService {
         return usuarioMapper.toDTO(usuario);
     }
 
-    public UsuarioDTO createUser(UsuarioDTO usuarioDTO){
+    public UsuarioDTO createUser(UsuarioDTO usuarioDTO) throws Exception {
+        if (usuarioRepository.existsUsuarioByEmail(usuarioDTO.getEmail())) {
+            throw new Exception(
+                    "E-mail: " + usuarioDTO.getEmail() + " já cadastrado!");
+        }
+
         Usuario usuario = usuarioMapper.toModel(usuarioDTO);
+        usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
         usuario = usuarioRepository.save(usuario);
         return usuarioMapper.toDTO(usuario);
 
@@ -57,4 +71,14 @@ public class UsuarioService {
         return false;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+        boolean userExists = usuarioRepository.existsUsuarioByEmail(email);
+        if(userExists){
+            Usuario usuario = usuarioRepository.findByEmail(email);
+            return new org.springframework.security.core.userdetails.User(usuario.getEmail(), usuario.getSenha(), new ArrayList<>());
+        }else{
+            throw new UsernameNotFoundException("Usuário não encontrado!");
+        }
+    }
 }
