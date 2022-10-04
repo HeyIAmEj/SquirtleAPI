@@ -4,7 +4,6 @@ import br.com.squirtle.dto.model.UsuarioDTO;
 import br.com.squirtle.dto.response.ResponseBody;
 import br.com.squirtle.security.JWTUtils;
 import br.com.squirtle.service.UsuarioService;
-import com.auth0.jwt.JWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
