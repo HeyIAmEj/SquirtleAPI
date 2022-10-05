@@ -1,13 +1,18 @@
 package br.com.squirtle.security;
 
+import br.com.squirtle.model.Usuario;
+import br.com.squirtle.repository.UsuarioRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +20,8 @@ import java.util.function.Function;
 
 @Component
 public class JWTUtils {
+    @Autowired
+    private UsuarioRepository usuarioRepository;
     @Value("${squitle.app.jwtSecret}")
     private String secret;
     @Value("${squirtle.app.jwtExpirationMs}")
@@ -51,15 +58,17 @@ public class JWTUtils {
     //gera token para user
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername());
+            Usuario usuario = usuarioRepository.findByEmail(userDetails.getUsername());
+        return doGenerateToken(claims, userDetails.getUsername(), usuario.getId());
     }
 
     //Cria o token e devine tempo de expiração pra ele
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
+    private String doGenerateToken(Map<String, Object> claims, String email, Long id) {
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(subject)
+                .setSubject(email)
+                .setId(String.valueOf(id))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
                 .signWith(SignatureAlgorithm.HS256, secret).compact();
