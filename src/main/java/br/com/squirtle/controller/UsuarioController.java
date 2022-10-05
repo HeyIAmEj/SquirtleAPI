@@ -26,7 +26,6 @@ public class UsuarioController {
     public List<UsuarioDTO> usuarios(){
         return usuarioService.getAllUsers();
     }
-
     @GetMapping("/{user_id}")
     public UsuarioDTO usuarioPorId(@PathVariable Long user_id) throws UsuarioNaoEncontradoException {
         UsuarioDTO usuarioDTO = usuarioService.getUserById(user_id);
