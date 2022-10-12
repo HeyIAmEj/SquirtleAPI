@@ -17,6 +17,7 @@ public class Dispositivo {
     private Long id;
 
     private String nome;
+    private String descricao;
 
     private Boolean status;
 
@@ -24,6 +25,9 @@ public class Dispositivo {
 
     private String wifi_ssid;
     private String wifi_pass;
+
+    private String tipo_solo;
+    private String tempo_bomba;
 
     private String sensor1;
     private String sensor2;
@@ -33,6 +37,5 @@ public class Dispositivo {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "dispositivos")
-//    @ManyToMany
     private List<Usuario> usuarios;
 }

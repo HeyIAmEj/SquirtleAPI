@@ -22,7 +22,7 @@ public class Usuario {
 
     @ManyToMany
     @JoinTable(
-            name = "tbl_usuario_tem_dispositivo",
+            name = "UsuarioDispositivo",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "dispositivo_id"))
     private List<Dispositivo> dispositivos;

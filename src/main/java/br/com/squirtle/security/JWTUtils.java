@@ -33,6 +33,10 @@ public class JWTUtils {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
+    public String getIdFromToken(String token) {
+        return getClaimFromToken(token, Claims::getId);
+    }
+
     //retorna expiration date do token jwt
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);

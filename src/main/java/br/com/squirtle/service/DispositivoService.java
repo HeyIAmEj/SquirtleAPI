@@ -4,16 +4,27 @@ import br.com.squirtle.dto.DispositivoMapper;
 import br.com.squirtle.dto.model.DispositivoDTO;
 import br.com.squirtle.exception.DispositivoNaoEncontradoException;
 import br.com.squirtle.model.Dispositivo;
+import br.com.squirtle.model.Usuario;
+import br.com.squirtle.model.UsuarioDispositivo;
 import br.com.squirtle.repository.DispositivoRepository;
+import br.com.squirtle.repository.LinkRepository;
+import br.com.squirtle.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class DispositivoService {
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private LinkRepository usuarioDispositivoRepository;
     @Autowired
     private DispositivoRepository dispositivoRepository;
 
@@ -60,9 +71,18 @@ public class DispositivoService {
         return value;
 
     }
-    public DispositivoDTO createDevice(DispositivoDTO dispositivoDTO){
+    public DispositivoDTO createDevice(DispositivoDTO dispositivoDTO, String user_id){
+
+        Usuario usuario = usuarioRepository.findById(Long.valueOf(user_id)).orElseThrow();
+
         Dispositivo dispositivo = dispositivoMapper.toModel(dispositivoDTO);
         dispositivo = dispositivoRepository.save(dispositivo);
+
+        UsuarioDispositivo usuarioDispositivo = new UsuarioDispositivo();
+        usuarioDispositivo.setDispositivo_id(dispositivo.getId());
+        usuarioDispositivo.setUsuario_id(usuario.getId());
+        usuarioDispositivoRepository.save(usuarioDispositivo);
+
         return dispositivoMapper.toDTO(dispositivo);
 
     }
