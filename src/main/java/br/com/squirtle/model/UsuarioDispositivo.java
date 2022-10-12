@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tbl_usuario_tem_dispositivo")
+@Table(name = "UsuarioDispositivo")
 public class UsuarioDispositivo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
