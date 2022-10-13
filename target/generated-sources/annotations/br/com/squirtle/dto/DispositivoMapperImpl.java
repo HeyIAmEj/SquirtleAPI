@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-12T18:33:33-0300",
+    date = "2022-10-12T21:56:00-0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.15 (Amazon.com Inc.)"
 )
 @Component
@@ -26,10 +26,13 @@ public class DispositivoMapperImpl implements DispositivoMapper {
 
         dispositivo.setId( dispositivoDTO.getId() );
         dispositivo.setNome( dispositivoDTO.getNome() );
+        dispositivo.setDescricao( dispositivoDTO.getDescricao() );
         dispositivo.setStatus( dispositivoDTO.getStatus() );
         dispositivo.setIcone( dispositivoDTO.getIcone() );
         dispositivo.setWifi_ssid( dispositivoDTO.getWifi_ssid() );
         dispositivo.setWifi_pass( dispositivoDTO.getWifi_pass() );
+        dispositivo.setTipo_solo( dispositivoDTO.getTipo_solo() );
+        dispositivo.setTempo_bomba( dispositivoDTO.getTempo_bomba() );
         dispositivo.setSensor1( dispositivoDTO.getSensor1() );
         dispositivo.setSensor2( dispositivoDTO.getSensor2() );
         dispositivo.setSensor3( dispositivoDTO.getSensor3() );
@@ -53,10 +56,13 @@ public class DispositivoMapperImpl implements DispositivoMapper {
 
         dispositivoDTO.id( dispositivo.getId() );
         dispositivoDTO.nome( dispositivo.getNome() );
+        dispositivoDTO.descricao( dispositivo.getDescricao() );
         dispositivoDTO.status( dispositivo.getStatus() );
         dispositivoDTO.icone( dispositivo.getIcone() );
         dispositivoDTO.wifi_ssid( dispositivo.getWifi_ssid() );
         dispositivoDTO.wifi_pass( dispositivo.getWifi_pass() );
+        dispositivoDTO.tipo_solo( dispositivo.getTipo_solo() );
+        dispositivoDTO.tempo_bomba( dispositivo.getTempo_bomba() );
         dispositivoDTO.sensor1( dispositivo.getSensor1() );
         dispositivoDTO.sensor2( dispositivo.getSensor2() );
         dispositivoDTO.sensor3( dispositivo.getSensor3() );

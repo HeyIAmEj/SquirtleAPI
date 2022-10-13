@@ -17,6 +17,7 @@ public class DispositivoDTO {
     private Long id;
 
     private String nome;
+    private String descricao;
 
     private Boolean status;
 
@@ -24,6 +25,9 @@ public class DispositivoDTO {
 
     private String wifi_ssid;
     private String wifi_pass;
+
+    private String tipo_solo;
+    private String tempo_bomba;
 
     private String sensor1;
     private String sensor2;
