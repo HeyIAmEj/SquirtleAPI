@@ -6,8 +6,11 @@ import br.com.squirtle.exception.DispositivoNaoEncontradoException;
 import br.com.squirtle.model.Dispositivo;
 import br.com.squirtle.service.DispositivoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @RestController
 @RequestMapping(value="/api/v1/dispositivo", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,6 +28,26 @@ public class SensorController {
             sensorValue = "";
         }
         return sensorValue;
+    }
+
+    @PutMapping("/{device_id}/sensores")
+    public HashMap<String, String> alterarSensoralterarSensores(@PathVariable Long device_id, @RequestBody DispositivoDTO dispositivoDTO) throws DispositivoNaoEncontradoException {
+        DispositivoDTO deviceBD = dispositivoService.getDeviceById(device_id);
+        deviceBD.setStatus(dispositivoDTO.getStatus());
+        deviceBD.setSensor1(dispositivoDTO.getSensor1());
+        deviceBD.setSensor2(dispositivoDTO.getSensor2());
+        deviceBD.setSensor3(dispositivoDTO.getSensor3());
+        deviceBD.setSensor4(dispositivoDTO.getSensor4());
+        deviceBD.setSensor5(dispositivoDTO.getSensor5());
+
+        Dispositivo deviceUpdated = dispositivoMapper.toModel(deviceBD);
+        dispositivoService.updateSensor(deviceUpdated);
+
+        HashMap<String, String> responsebody = new HashMap<>();
+        responsebody.put("status", String.valueOf(HttpStatus.OK.value()));
+        responsebody.put("success", "true");
+
+        return responsebody;
     }
 
     @PutMapping("/{device_id}/sensor/{sensor_id}")

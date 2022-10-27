@@ -1,5 +1,6 @@
 package br.com.squirtle.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +19,8 @@ public class Usuario {
     private String sobrenome;
 
     private String email;
+
+    @JsonIgnore
     private String senha;
 
     @ManyToMany
