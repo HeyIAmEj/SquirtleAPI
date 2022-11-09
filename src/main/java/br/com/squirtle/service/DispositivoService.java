@@ -87,4 +87,11 @@ public class DispositivoService {
 
     }
 
+    public DispositivoDTO updateDevice(DispositivoDTO dispositivoDTO){
+        Dispositivo dispositivo = dispositivoMapper.toModel(dispositivoDTO);
+        dispositivo = dispositivoRepository.save(dispositivo);
+        return dispositivoMapper.toDTO(dispositivo);
+
+    }
+
 }

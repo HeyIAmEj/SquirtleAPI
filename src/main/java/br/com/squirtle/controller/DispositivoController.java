@@ -48,5 +48,11 @@ public class DispositivoController {
         return dispositivoService.createDevice(dispositivoDTO, user_id);
     }
 
+    @PutMapping()
+    public DispositivoDTO atualizarDispositivo(@RequestHeader HttpHeaders httpHeaders, @RequestBody DispositivoDTO dispositivoDTO){
+        String jwtAuthorizationHeader = String.valueOf(httpHeaders.getFirst(HttpHeaders.AUTHORIZATION));
+        String jwt = jwtAuthorizationHeader.substring(7);
+        return dispositivoService.updateDevice(dispositivoDTO);
+    }
 
 }
