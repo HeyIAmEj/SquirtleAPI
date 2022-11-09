@@ -55,4 +55,12 @@ public class DispositivoController {
         return dispositivoService.updateDevice(dispositivoDTO);
     }
 
+    @DeleteMapping()
+    public boolean deletarDispositivo(@RequestHeader HttpHeaders httpHeaders, @RequestBody DispositivoDTO dispositivoDTO){
+        String jwtAuthorizationHeader = String.valueOf(httpHeaders.getFirst(HttpHeaders.AUTHORIZATION));
+        String jwt = jwtAuthorizationHeader.substring(7);
+        String user_id = jwtUtils.getIdFromToken(jwt);
+        return dispositivoService.removeDevice(dispositivoDTO, user_id);
+    }
+
 }

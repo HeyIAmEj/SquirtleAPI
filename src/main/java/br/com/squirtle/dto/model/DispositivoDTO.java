@@ -35,5 +35,8 @@ public class DispositivoDTO {
     private String sensor4;
     private String sensor5;
 
+    private String action1;
+
+
     private List<Usuario> usuarios;
 }

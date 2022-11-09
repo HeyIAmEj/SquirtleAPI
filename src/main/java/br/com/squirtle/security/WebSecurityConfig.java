@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("/api/v1/login").permitAll();
         http.authorizeRequests().antMatchers("/api/v1/usuariosecret").permitAll();
+        http.authorizeRequests().antMatchers("/api/v1/mock").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/usuario").permitAll();
         http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
         http.authorizeRequests().antMatchers("/api/v1/dispositivo/{device_id}/sensores").permitAll();

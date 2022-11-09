@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-09T18:45:01-0300",
+    date = "2022-11-09T20:17:09-0300",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.15 (Amazon.com Inc.)"
 )
 @Component
@@ -38,6 +38,7 @@ public class DispositivoMapperImpl implements DispositivoMapper {
         dispositivo.setSensor3( dispositivoDTO.getSensor3() );
         dispositivo.setSensor4( dispositivoDTO.getSensor4() );
         dispositivo.setSensor5( dispositivoDTO.getSensor5() );
+        dispositivo.setAction1( dispositivoDTO.getAction1() );
         List<Usuario> list = dispositivoDTO.getUsuarios();
         if ( list != null ) {
             dispositivo.setUsuarios( new ArrayList<Usuario>( list ) );
@@ -68,6 +69,7 @@ public class DispositivoMapperImpl implements DispositivoMapper {
         dispositivoDTO.sensor3( dispositivo.getSensor3() );
         dispositivoDTO.sensor4( dispositivo.getSensor4() );
         dispositivoDTO.sensor5( dispositivo.getSensor5() );
+        dispositivoDTO.action1( dispositivo.getAction1() );
         List<Usuario> list = dispositivo.getUsuarios();
         if ( list != null ) {
             dispositivoDTO.usuarios( new ArrayList<Usuario>( list ) );

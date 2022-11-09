@@ -36,6 +36,8 @@ public class Dispositivo {
     private String sensor4;
     private String sensor5;
 
+    private String action1;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "dispositivos")
     private List<Usuario> usuarios;

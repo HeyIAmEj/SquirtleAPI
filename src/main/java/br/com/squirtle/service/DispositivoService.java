@@ -12,9 +12,7 @@ import br.com.squirtle.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,6 +74,7 @@ public class DispositivoService {
         Usuario usuario = usuarioRepository.findById(Long.valueOf(user_id)).orElseThrow();
 
         Dispositivo dispositivo = dispositivoMapper.toModel(dispositivoDTO);
+        dispositivo.setIcone(getRandomIcon());
         dispositivo = dispositivoRepository.save(dispositivo);
 
         UsuarioDispositivo usuarioDispositivo = new UsuarioDispositivo();
@@ -84,6 +83,25 @@ public class DispositivoService {
         usuarioDispositivoRepository.save(usuarioDispositivo);
 
         return dispositivoMapper.toDTO(dispositivo);
+
+    }
+
+    public String getRandomIcon(){
+        List<String> iconList = Arrays.asList("sun", "moon", "ice", "cloud", "leaf", "plant", "general");
+        Random rand = new Random();
+        return iconList.get(rand.nextInt(iconList.size()));
+    }
+
+    public boolean removeDevice(DispositivoDTO dispositivoDTO, String user_id){
+
+        Dispositivo dispositivo = dispositivoMapper.toModel(dispositivoDTO);
+
+        usuarioDispositivoRepository.deleteAllWhereDispositivoId(dispositivo.getId());
+        dispositivoRepository.delete(dispositivo);
+
+
+
+        return true;
 
     }
 
