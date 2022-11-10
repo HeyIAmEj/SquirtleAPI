@@ -18,6 +18,7 @@ public class Usuario {
     private String nome;
     private String sobrenome;
 
+    @Column(unique=true)
     private String email;
 
     @JsonIgnore
